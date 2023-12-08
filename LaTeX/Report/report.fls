@@ -1,0 +1,68 @@
+PWD /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report
+INPUT /usr/local/texlive/2021/texmf.cnf
+INPUT /usr/local/texlive/2021/texmf-dist/web2c/texmf.cnf
+INPUT /usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt
+INPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.tex
+OUTPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.log
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/exam/exam.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/base/size10.clo
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+INPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.aux
+INPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.aux
+INPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.aux
+OUTPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.aux
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+OUTPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.pdf
+INPUT /usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map
+INPUT /Users/jaredhoyt1/Documents/GitHub/School/CSCE-477/Final Project/LaTeX/Report/report.aux
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT /usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb

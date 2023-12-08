@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Final Project Presenation</title>
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>Block Cipher Modes of Operation</h1>
+          <p>Unlocking the Layers of Data Encryption</p>
+          <aside class="notes">
+            Welcome to this presentation on Block Cipher Modes of Operation. We'll delve into the mechanics of these modes, their importance in cryptography, and how they safeguard digital data against various threats.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Introduction</h2>
+          <section>
+            <p>Block ciphers are cryptographic algorithms that encrypt data in fixed-size blocks, typically 64 (DES) or 128 (AES) bits.</p>
+          </section>
+
+          <section>
+            <p>They form the backbone of many encryption systems, securing everything from online transactions to confidential communications.</p>
+          </section>
+
+          <section>
+            <p>In this project, I chose to use the DES encryption algorithm to encrypt PNG files to test and benchmark the five modes of operation:</p>
+            <ul>
+              <li>ECB (Electronic Code Book)</li>
+              <li>CBC (Cipher Block Chaining)</li>
+              <li>CFB (Cipher Feedback)</li>
+              <li>OFB (Output Feedback)</li>
+              <li>CTR (Counter)</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h2>Problem Definition</h2>
+
+          <section>
+            <p>Despite their robustness, using block ciphers in their basic form can lead to vulnerabilities such as pattern leakage and are susceptible to replay attacks.</p>
+          </section>
+
+          <section>
+            <p>These challenges necessitate the use of different modes of operation, each tailored to enhance security and efficiency in varying contexts.</p>
+          </section>
+        </section>
+
+        <section>
+          <h2>Objective</h2>
+
+          <section>
+            <ul>
+              <li>Explore the five modes: ECB, CBC, CFB, OFB, and CTR</li>
+              <li>Aim to understand their unique mechanisms</li>
+              <li>Evaluate each mode's strengths and weaknesses in different scenarios</li>
+            </ul>
+          </section>
+        </section>
+
+        <section>
+          <h2>Steps Taken</h2>
+
+          <section>
+            <h4>Initial Research</h4>
+            <p>Conducted an in-depth study of block cipher algorithms and their various modes, including cryptographic literature and existing implementations.</p>
+          </section>
+
+          <section>
+            <h4>Choosing the Algorithm</h4>
+            <p>Selected DES (Data Encryption Standard) for implementation due to its historical significance and instructional value.</p>
+          </section>
+
+          <section>
+            <h4>Environment Setup</h4>
+            <p>Set up a Python development environment with necessary libraries for handling binary data and encryption operations.</p>
+          </section>
+
+          <section>
+            <h4>DES Implementation</h4>
+            <p>Implemented the DES algorithm in Python, ensuring adherence to standard specifications and accurate data encryption and decryption.</p>
+          </section>
+
+          <section>
+            <h4>Mode Implementation</h4>
+            <p>Implemented each block cipher mode (ECB, CBC, CFB, OFB, CTR) with DES, including logic for padding, initialization vectors, and chaining.</p>
+          </section>
+
+          <section>
+            <h4>Testing</h4>
+            <p>Conducted thorough testing of each mode using known plaintexts and keys, validating correctness against established benchmarks.</p>
+          </section>
+
+          <section>
+            <h4>Performance Analysis</h4>
+            <p>Measured and compared the performance of each mode in terms of encryption/decryption speed and resource usage.</p>
+          </section>
+
+          <section>
+            <h4>Security Analysis</h4>
+            <p>Analyzed the security aspects of each mode, focusing on resistance to common cryptographic attacks.</p>
+          </section>
+        </section>
+
+        <section>
+          <h2>app.py</h2>
+
+          <section style="font-size: 30px;">
+            <pre>
+              <code data-line-numbers="12|13-15|24-25|28-31|32-35|36-37|38-39|40-41">from flask import Flask, request, send_file
+from flask_cors import CORS
+from des import DES
+from services.image import get_image_data, put_image_data
+import os
+
+
+app = Flask(__name__)
+cors = CORS(app, resources={r"/encrypt": {"origins": "*"}})
+
+
+@app.route("/encrypt", methods=["POST"])
+def encrypt_image():
+  image = request.files["image"]
+  mode = request.form["mode"]
+
+  if not image or not mode:
+    return "Missing image or encryption mode", 400
+
+  input_path = "assets/temp_input.png"
+  output_path = "assets/temp_output.png"
+  image.save(input_path)
+
+  pixels = get_image_data(input_path)
+  des = DES(pixels)
+
+  match mode:
+    case "ECB":
+      des.mode.pad_text()
+      encrypted_data = des.mode.ecb()
+      des.mode.unpad_text()
+    case "CBC":
+      des.mode.pad_text()
+      encrypted_data = des.mode.cbc()
+      des.mode.unpad_text()
+    case "CFB":
+      encrypted_data = des.mode.cfb()
+    case "OFB":
+      encrypted_data = des.mode.ofb()
+    case "CTR":
+      encrypted_data = des.mode.ctr()
+    case _:
+      os.remove(input_path)
+      return {"error": "Invalid encryption mode"}, 400
+
+  put_image_data(input_path, output_path, encrypted_data)
+  os.remove(input_path)
+
+  return send_file(output_path, mimetype="image/png", as_attachment=False)
+
+
+if __name__ == "__main__":
+  app.run(debug=True)
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <h2>des.py</h2>
+
+          <section style="font-size: 30px;">
+            <pre>
+              <code data-line-numbers="10-14|16-19|45-50|68-82|84-102|106-129|131-149|153-177|179-197">import data.des_constants as constants
+import numpy as np
+from tqdm import tqdm
+
+
+def permute(permutation_table, bit_string):
+    return bit_string[permutation_table - 1]
+
+
+class DES:
+    def __init__(self, text):
+        self.text = text
+        self.key = self.Key()
+        self.mode = self.Mode(self)
+
+    class Key:
+        def __init__(self):
+            self.key = self.generate_key()
+            self.subkeys = self.generate_subkeys()
+
+        def generate_key(self):
+            random_bit_generator = np.random.default_rng()
+            random_bits = random_bit_generator.integers(low=0, high=2, size=64)
+            return np.array(random_bits, dtype=np.uint8)
+
+        def generate_subkeys(self):
+            permuted_key = permute(constants.PC_1, self.key)
+
+            c = permuted_key[:28]
+            d = permuted_key[28:]
+
+            subkeys = np.empty((16, 48), dtype=np.uint8)
+
+            for i, shift in enumerate(constants.SHIFTS):
+                c = np.roll(c, -1 * shift)
+                d = np.roll(d, -1 * shift)
+
+                cd_combined = np.hstack((c, d))
+
+                subkey = permute(constants.PC_2, cd_combined)
+                subkeys[i] = subkey
+
+            return subkeys
+
+    class Mode:
+        def __init__(self, des: "DES"):
+            self.des = des
+            self.BLOCK_SIZE_BITS = 64
+            self.SEGMENT_SIZE_BITS = 8
+            self.padding = np.array([])
+
+        def pad_text(self):
+            # Padding will only (potentially) be set if the text is being decrypted.
+            if  len(self.padding) > 0:
+                self.des.text = np.concatenate((self.des.text, self.padding))
+                return
+
+            padding_length = len(self.des.text) % self.BLOCK_SIZE_BITS
+
+            if padding_length:
+                self.padding = np.zeros(self.BLOCK_SIZE_BITS - padding_length)
+                self.des.text = np.concatenate((self.des.text, self.padding))
+
+        def unpad_text(self):
+            if len(self.padding) > 0:
+                self.des.text = self.des.text[:len(self.des.text) - len(self.padding)]
+
+        def ecb(self):
+            num_blocks = len(self.des.text) // self.BLOCK_SIZE_BITS
+            encryption = np.empty(num_blocks * self.BLOCK_SIZE_BITS, dtype=np.uint8)
+
+            for i in tqdm(
+                range(num_blocks),
+                desc="Encryption in ECB Mode",
+                total=num_blocks
+            ):
+                start = i * self.BLOCK_SIZE_BITS
+                end = start + self.BLOCK_SIZE_BITS
+                encrypted_block = self.des.encrypt(self.des.text[start:end])
+                encryption[start:end] = encrypted_block
+
+            return encryption
+
+        def cbc(self):
+            # TODO: create a more robust IV
+            IV = np.zeros(self.BLOCK_SIZE_BITS, dtype=np.uint8)
+
+            num_blocks = len(self.des.text) // self.BLOCK_SIZE_BITS
+            encryption = np.empty(num_blocks * self.BLOCK_SIZE_BITS, dtype=np.uint8)
+
+            for i in tqdm(
+                range(num_blocks),
+                desc="Encryption in CBC Mode",
+                total=num_blocks
+            ):
+                start = i * self.BLOCK_SIZE_BITS
+                end = start + self.BLOCK_SIZE_BITS
+
+                block = np.bitwise_xor(self.des.text[start:end], IV)
+                encrypted_block = self.des.encrypt(block)
+                IV = encrypted_block
+                encryption[start:end] = encrypted_block
+
+            return encryption
+
+        def cfb(self):
+            shift_register = np.zeros(self.BLOCK_SIZE_BITS, dtype=np.uint8)
+
+            num_segments = len(self.des.text) // self.SEGMENT_SIZE_BITS
+            ciphertext = np.empty(num_segments * self.SEGMENT_SIZE_BITS, dtype=np.uint8)
+
+            for i in tqdm(
+                range(num_segments),
+                desc="Encryption in CFB Mode",
+                total=num_segments
+            ):
+                start = i * self.SEGMENT_SIZE_BITS
+                end = start + self.SEGMENT_SIZE_BITS
+
+                encryption = self.des.encrypt(shift_register)
+                plaintext_segment = self.des.text[start:end]
+                
+                ciphertext_segment = np.bitwise_xor(encryption[:self.SEGMENT_SIZE_BITS], plaintext_segment)
+                ciphertext[start:end] = ciphertext_segment
+
+                shift_register = np.roll(shift_register, -self.SEGMENT_SIZE_BITS)
+                shift_register[-self.SEGMENT_SIZE_BITS:] = ciphertext_segment
+
+            return ciphertext
+
+        def ofb(self):
+            # TODO: create a more robust nonce
+            nonce = np.zeros(self.BLOCK_SIZE_BITS, dtype=np.uint8)
+            
+            num_blocks = len(self.des.text) // self.BLOCK_SIZE_BITS
+            plaintext = np.empty(num_blocks * self.BLOCK_SIZE_BITS, dtype=np.uint8)
+
+            for i in tqdm(
+                range(num_blocks),
+                desc="Encryption in OFB Mode",
+                total=num_blocks
+            ):
+                start = i * self.BLOCK_SIZE_BITS
+                end = start + self.BLOCK_SIZE_BITS
+
+                nonce = self.des.encrypt(nonce)
+                plaintext_block = self.des.text[start:end]
+                ciphertext_block = np.bitwise_xor(plaintext_block, nonce[:len(plaintext_block)])
+                plaintext[start:end] = ciphertext_block
+
+            return plaintext
+
+        def ctr(self):
+            num_blocks = len(self.des.text) // self.BLOCK_SIZE_BITS
+            ciphertext = np.empty(num_blocks * self.BLOCK_SIZE_BITS, dtype=np.uint8)
+            counter = 0
+            modulus = 2 ** self.BLOCK_SIZE_BITS
+
+            for i in tqdm(
+                range(num_blocks),
+                desc="Encryption in CTR Mode",
+                total=num_blocks
+            ):
+                counter_block = np.array([counter], dtype=np.uint64).view(np.uint8)
+                counter_block = np.pad(counter_block, (0, self.BLOCK_SIZE_BITS - counter_block.size), "constant")
+                
+                encryption = self.des.encrypt(counter_block)
+                plaintext_block = self.des.text[start:end]
+                ciphertext_block = np.bitwise_xor(plaintext_block, encryption[:len(plaintext_block)])
+                
+                start = i * self.BLOCK_SIZE_BITS
+                end = start + self.BLOCK_SIZE_BITS
+                ciphertext[start:end] = ciphertext_block
+
+                counter = (counter + 1) % modulus
+
+            return ciphertext
+
+    def encrypt(self, text):
+        permuted_message = permute(constants.IP, text)
+        l = permuted_message[:32]
+        r = permuted_message[32:]
+
+        for subkey in self.key.subkeys:
+            xor = subkey ^ permute(constants.E_BIT, r)
+            result = np.empty((0,), dtype=np.uint8)
+
+            for i in range(8):
+                six_bits = xor[i * 6 : (i + 1) * 6]
+                row = (six_bits[0] << 1) + six_bits[5]
+                col = (six_bits[1] << 3) + (six_bits[2] << 2) + (six_bits[3] << 1) + six_bits[4]
+
+                s_box_value = constants.S_BOXES[i][row][col]
+                result = np.concatenate((result, constants.S_BOX_CONVERSION[s_box_value]))
+
+            f = permute(constants.P, result)
+            l, r = r, l ^ f
+
+        return permute(constants.IP_I, np.concatenate((r, l)))
+              </code>
+            </pre>
+          </section>
+        </section>
+
+        <section>
+          <h2>Demo</h2>
+        </section>
+
+        <section>
+          <h2>Results</h2>
+
+          <section>
+            <div style="display: flex;">
+              <div>
+                <h6>1 kilobyte</h6>
+                <img
+                  src="../backend/assets/kilobyte.png"
+                  alt="Kilobyte Comparison"
+                  height="auto"
+                  width="500px"
+                />
+              </div>
+  
+              <div>
+                <h6>1 megabyte</h6>
+                <img
+                  src="../backend/assets/megabyte.png"
+                  alt="Kilobyte Comparison"
+                  height="auto"
+                  width="500px"
+                />
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h4>ECB (Electronic Code Book)</h4>
+            <p>ECB is efficient for small, independent data blocks. Its pattern leakage vulnerability is observed in larger or repetitive datasets.</p>
+            <p><strong>Optimization:</strong> Use parallelism to decrease running time.</p>
+          </section>
+
+          <section>
+            <h4>CBC (Cipher Block Chaining)</h4>
+            <p>CBC mode's chaining of blocks enhance security, making it suitable for larger datasets. It shows resilience against pattern leakage.</p>
+            <p><strong>Optimization:</strong> Implement efficient padding mechanisms.</p>
+          </section>
+
+          <section>
+            <h4>CFB (Cipher Feedback)</h4>
+            <p>CFB is effective in streaming scenarios requiring error propagation. It is particularly useful for real-time data encryption.</p>
+            <p><strong>Optimization:</strong> Adjust the feedback size to strike a balance between error propagation and throughput.</p>
+          </section>
+
+          <section>
+            <h4>OFB (Output Feedback)</h4>
+            <p>OFB proves advantageous in scenarios where error propagation is undesirable, such as in noisy channels. It is effective for streaming data.</p>
+            <p><strong>Optimization:</strong> Use pre-generated keystreams to increase throughput.</p>
+          </section>
+
+
+          <section>
+            <h4>CTR (Counter)</h4>
+            <p>CTR's parallelizability makes it highly efficient for high-speed applications and large datasets, popular in cloud
+              storage and streaming services.</p>
+            <p><strong>Optimization:</strong> Leverage hardware acceleration and parallel processing to enhance performance in bulk data encryption.</p>
+          </section>
+
+          <section>
+            <p>Each mode demonstrates unique strengths, suited to particular data and encryption scenarios. The optimization steps taken significantly enhanced their applicability and performance.</p>
+          </section>
+        </section>
+
+        <section>
+          <h2>Questions?</h2>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+      });
+    </script>
+  </body>
+</html>

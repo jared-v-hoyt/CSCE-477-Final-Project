@@ -1,0 +1,131 @@
+\documentclass{exam}
+
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\pagestyle{headandfoot}
+\header{CSCE-477}{\textbf{Project Proposal}}{Fall 2023}
+\footer{}{\thepage}{} \headrule
+
+\begin{document}
+  \begin{center}
+    \Large \textbf{Implementing and Benchmarking Encryption Modes}
+  \end{center}
+
+  \vspace{1em}
+
+  Group Members: \textbf{Jared Hoyt}
+
+  For the final project, I chose to do the following prompt:
+
+  ``Implement the five modes (ECB, CBC, CFB, OFB, CNT) to encrypt large messages using any block cipher of your choice (DES, AES, etc). Benchmark and compare their performance. Try to use repeated message blocks in different input messages and see the resulting ciphertext. Try also to swap the ciphertext blocks and modify some of the blocks and see the decrypted messages.''
+
+  \section*{Motivation}
+  I was drawn to this prompt not only because of its significant emphasis on programming but also due to the practical application and deep understanding it necessitates. To me, it's more than just an assignment; it's a pathway to expand my skill set in the Python language.
+
+  Looking ahead, I envision honing my Python skills to a level where I can comfortably and efficiently implement real-world encryption algorithms. It’s not just about becoming adept at Python; it’s about understanding the robust encryption algorithms that are fundamental in ensuring data security in today’s digital landscape.
+
+  I am eager to get to grips with the intricacies of these algorithms, not just in theory but in practice. Understanding how they operate in real scenarios will afford me a comprehensive view of digital security measures, offering knowledge that is both timely and highly relevant in the current era.
+
+  \section*{Step 1: Preparation}
+
+  \subsection*{Research}
+  \begin{itemize}
+      \item Understand the five modes of operation (ECB, CBC, CFB, OFB, CTR) and block ciphers (like DES, AES).
+      \item Learn about benchmarking techniques to compare the performance of different encryption modes.
+  \end{itemize}
+
+  \subsection*{Environment Setup}
+  \begin{itemize}
+      \item Set up a development environment with necessary programming tools (IDE, compilers, etc.).
+      \item Install necessary libraries/packages for cryptography in Python.
+  \end{itemize}
+
+  \subsection*{Data Preparation}
+  \begin{itemize}
+      \item Prepare a dataset with different large messages to be used during encryption testing.
+  \end{itemize}
+
+  \section*{Step 2: Implementation}
+
+  \subsection*{Implement Encryption Modes}
+  \begin{itemize}
+      \item ECB (Electronic Codebook)
+      \item CBC (Cipher Block Chaining)
+      \item CFB (Cipher Feedback)
+      \item OFB (Output Feedback)
+      \item CTR (Counter)
+  \end{itemize}
+
+  \subsection*{Implement Block Ciphers}
+  \begin{itemize}
+      \item DES (Data Encryption Standard)
+      \item AES (Advanced Encryption Standard)
+  \end{itemize}
+
+  \section*{Step 3: Benchmarking}
+
+  \subsection*{Benchmarking Setup}
+  \begin{itemize}
+      \item Develop a benchmarking strategy to compare the performance of different modes.
+  \end{itemize}
+
+  \subsection*{Performance Testing}
+  \begin{itemize}
+      \item Run encryption and decryption processes multiple times and record the time taken for each process to get a reliable measure of their performance.
+  \end{itemize}
+
+  \section*{Step 4: Experimentation}
+
+  \subsection*{Experiment with Repeated Message Blocks}
+  \begin{itemize}
+      \item Encrypt messages with repeated blocks using different modes and observe the ciphertext results.
+  \end{itemize}
+
+  \subsection*{Ciphertext Modification}
+  \subsubsection*{Swap Ciphertext Blocks}
+  \begin{itemize}
+      \item Swap different blocks of ciphertext and then decrypt to observe the results.
+  \end{itemize}
+  \subsubsection*{Modify Ciphertext Blocks}
+  \begin{itemize}
+      \item Make modifications in some blocks and decrypt to see the outcome.
+  \end{itemize}
+
+  \section*{Step 5: Analysis}
+
+  \subsection*{Data Analysis}
+  \begin{itemize}
+      \item Analyze the benchmark data to identify which mode performs the best in terms of speed and security.
+      \item Analyze the results from the ciphertext experiments to understand how each mode handles different types of input and manipulations.
+  \end{itemize}
+
+  \subsection*{Documentation}
+  \begin{itemize}
+      \item Document the methodology, the results of your benchmark tests, and the findings from the experimentation phase.
+  \end{itemize}
+
+  \section*{Step 6: Conclusion}
+
+  \subsection*{Conclusion}
+  \begin{itemize}
+      \item Draw conclusions based on the analysis.
+      \item Offer recommendations for the best modes and ciphers to use for encrypting large messages.
+  \end{itemize}
+
+  \subsection*{Report}
+  \begin{itemize}
+      \item Compile a comprehensive report presenting the methodology, findings, and conclusions.
+      \item Include visual aids such as charts and graphs to help illustrate the results.
+  \end{itemize}
+
+  \subsection*{Final Submission}
+  \begin{itemize}
+      \item Make necessary revisions based on the feedback received.
+      \item Submit the final report and ensure to include all the necessary code files and data used in the project.
+  \end{itemize}
+\end{document}
